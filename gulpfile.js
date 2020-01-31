@@ -14,6 +14,9 @@ var paths = {
         src: "./*.scss",
         // Compiled files will end up in whichever folder it's found in (partials are not compiled)
         dest: "."
+    },
+    js: {
+        src: "./*js"
     }
 };
 
@@ -55,7 +58,7 @@ function reload() {
 
 function watch(){
 
-    browserSync.init([paths.styles.src],{
+    browserSync.init([paths.styles.src, paths.js.src],{
         // You can tell browserSync to use this directory and serve it as a mini-server
         // server: {
         //     baseDir: "./"
