@@ -12,6 +12,7 @@ function my_theme_enqueue_styles() {
         array( $parent_style ),
         wp_get_theme()->get('Version')
     );
+    wp_enqueue_script('app-js', get_stylesheet_directory_uri() . '/main.js', ['jquery'], '1.0.0');
 }
 
 /**
