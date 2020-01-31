@@ -52,6 +52,7 @@ exports.style = style;
 
 
 function watch(){
+    style();
     // gulp.watch takes in the location of the files to watch for changes
     // and the name of the function we want to run on change
     gulp.watch('style.scss', style)
