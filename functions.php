@@ -19,6 +19,7 @@ function my_theme_enqueue_styles() {
         array( $parent_style ),
         wp_get_theme()->get('Version')
     );
+    wp_enqueue_style('thick-font', 'https://fonts.googleapis.com/css?family=BioRhyme+Expanded:800&display=swap');
     wp_enqueue_script('app-js', get_stylesheet_directory_uri() . '/app.js', ['jquery'], '1.0.0');
 }
 
@@ -38,8 +39,57 @@ function familiares_init() {
         'has_archive' => true,
         'rewrite'     => true,
         'query_var'   => true,
-        'supports'    => array( 'title', 'editor', 'custom-fields', 'post-formats' )
+        'supports'    => array('title','editor', 'custom-fields', 'post-formats', 'author')
     );
-    register_post_type( 'Familiares', $args );
+    register_post_type( 'familiares', $args );
 }
 add_action( 'init', 'familiares_init' );
+
+
+/**
+ * ADD CSS IN HEAD
+ */
+function css_in_head() {
+
+    if ( ! current_user_can('update_core') ) :
+    ?>
+
+    <style>
+        #menu-comments,
+        #menu-posts{
+            display: none;
+        }
+    </style>
+
+<?php endif; }
+add_action( 'admin_head', 'css_in_head');
+
+
+/*
+	Disable Default Dashboard Widgets
+	@ https://digwp.com/2014/02/disable-default-dashboard-widgets/
+*/
+function disable_default_dashboard_widgets() {
+    global $wp_meta_boxes;
+
+    if ( ! current_user_can('update_core') ) {
+        // wp..
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
+        unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+        unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
+        // bbpress
+//        unset($wp_meta_boxes['dashboard']['normal']['core']['bbp-dashboard-right-now']);
+        // yoast seo
+//        unset($wp_meta_boxes['dashboard']['normal']['core']['yoast_db_widget']);
+        // gravity forms
+//        unset($wp_meta_boxes['dashboard']['normal']['core']['rg_forms_dashboard']);
+    }
+
+}
+add_action('wp_dashboard_setup', 'disable_default_dashboard_widgets', 999);
