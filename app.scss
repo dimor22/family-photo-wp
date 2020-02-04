@@ -242,12 +242,11 @@
         margin: 1%;
         transition: opacity .5s;
 
-
-
         img {
           border-radius: 50%;
           transition: 1s;
           max-width: 100%;
+          min-width: 100%;
         }
 
         .details {
