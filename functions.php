@@ -93,3 +93,42 @@ function disable_default_dashboard_widgets() {
 
 }
 add_action('wp_dashboard_setup', 'disable_default_dashboard_widgets', 999);
+
+
+/** ADD TITLE AUTOMATICALY */
+
+add_action('acf/save_post', 'my_acf_save_post');
+function my_acf_save_post( $post_id ) {
+
+    $values = get_fields( $post_id );
+
+    if ( $post_id !== 'new') {
+
+        // Auto generate Title
+        if ( ! empty($values['nombre']) ) {
+            $title = $values['nombre'] . ' ' .$values['primer_apellido'];
+
+            wp_update_post([
+                'ID'    => $post_id,
+                'post_title' => $title
+            ]);
+        }
+
+        // Calculate Age
+        if ( !empty($values['fecha_de_nacimiento']) ) {
+            //date in mm/dd/yyyy format; or it can be in other formats as well
+            $birthDate = $values['fecha_de_nacimiento'];
+            //explode the date to get month, day and year
+            $birthDate = explode("/", $birthDate);
+            //get age from date or birthdate
+            $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+                ? ((date("Y") - $birthDate[2]) - 1)
+                : (date("Y") - $birthDate[2]));
+
+            update_field('edad', $age, $post_id);
+        }
+
+    }
+
+
+}

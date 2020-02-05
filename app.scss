@@ -366,5 +366,28 @@
 }
 
 
+  #content {
+    width: 100%;
+    padding: 4%;
+    background: white;
+    h1{
+      text-align: center;
+      + p{
+        text-align: center;
+      }
+    }
+
+    input{
+      &[type="text"] {
+        padding: 6% !important;
+      }
+      .button{
+        margin: 4%;
+      }
+    }
+  }
+
+
+
 
 
