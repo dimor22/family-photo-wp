@@ -259,6 +259,7 @@
           justify-content: center;
           align-items: flex-end;
           height: 100%;
+          visibility: hidden;
 
           .author-section {
             position: absolute;
@@ -323,6 +324,7 @@
 
           .details {
             opacity: 1;
+            visibility: visible;
           }
         }
       }
