@@ -10,7 +10,7 @@ $fdn = get_field('fecha_de_nacimiento');
 ?>
 
 <div class="familiar-photo">
-    <?php echo wp_get_attachment_image( $photoId, 'full' ); ?>
+    <?php echo wp_get_attachment_image( $photoId, 'big-square' ); ?>
 </div>
 <div class="familiar-info">
     <?php if ( is_archive() ) : ?>

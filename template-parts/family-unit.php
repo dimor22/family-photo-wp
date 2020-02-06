@@ -36,7 +36,7 @@ foreach ($user_ids as $user_id) {
                 ?>
 
                 <div class="unit">
-                    <?php echo wp_get_attachment_image( $photoId, 'full' ); ?>
+                    <?php echo wp_get_attachment_image( $photoId, 'big-square' ); ?>
                     <div class="details">
                     <div class="author-section">
                         <h2>Familia de <?php the_author();?></h2>
@@ -45,6 +45,10 @@ foreach ($user_ids as $user_id) {
                             <li class="name"><?php echo $nombre . ' ' . $papellido . ' ' . $sapellido; ?></li>
                             <li class="age"><?php echo $edad;?></li>
                             <li class="birthdate"><?php echo $fdn;?></li>
+                            <?php
+                            if ( is_user_logged_in() && ( get_current_user_id() === get_the_author_meta('ID') ) ) : ?>
+                                <li><a href="<?php echo get_permalink(); ?>" target="_self"><?php echo __('Edit', 'lws-family-photo-library');?></a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>

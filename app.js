@@ -1,7 +1,11 @@
 jQuery(document).ready( function ($) {
-    $('.foto-album').on('click', '.unit', function () {
+    $('.foto-album').on('click', '.unit', function (e) {
+        e.preventDefault();
         $(this).toggleClass('js-clicked');
 
-    })
-    console.log($('.unit').length);
+    });
+
+    $('.foto-album').on('click', '.unit a', function (e) {
+        $(this).click();
+    });
 })
